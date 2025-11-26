@@ -38,29 +38,26 @@ body {
     font-size: 3vw;
 }
 
-/* Difficulty Buttons */
-#difficulty {
+.startBtn {
     position: absolute;
-    top: 10px;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 10px;
-    z-index: 10;
-}
-
-button {
-    padding: 10px 16px;
-    border: none;
-    border-radius: 6px;
+    background:rgb(74, 144, 226, 0.2);
+    border: solid 2px rgba(74, 144, 226);
+    border-radius: 1rem;
+    backdrop-filter: blur(10px);
+    color: white;
+    padding: 14px 22px;
+    font-size: 18px;
     font-weight: bold;
+    transform: translate(-50%, -50%);
     cursor: pointer;
-    font-size: 16px;
 }
 
-.easy { background: #4cd964; }
-.medium { background: #ffd166; }
-.hard { background: #ff6b6b; }
+.startBtn:hover {
+    background: #357abd;
+
+}
 
 /* Countdown */
 #chrono {
@@ -121,11 +118,6 @@ button {
 
     .side h1 {
         font-size: 8vw;
-    }
-
-    #difficulty button {
-        font-size: 12px;
-        padding: 6px 10px;
     }
 
     #chrono {

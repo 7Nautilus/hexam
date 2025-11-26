@@ -1,4 +1,3 @@
-let difficulty = null;
 let timer = null;
 let timeLeft = 3;
 let duelFinished = false;
@@ -13,27 +12,31 @@ function playSoundForPlayer(player) {
     audio.play().catch(() => {});
 }
 
+// Lance le duel depuis le bouton Start
+function startDuel() {
+    duelFinished = false;
+    document.getElementById("restartBtn").style.display = "none";
+    document.getElementById("animation").style.opacity = 0;
+    document.getElementById("chrono").textContent = "3";
+    // Masquer le bouton Start
+    const startBtn = document.querySelector('.startBtn');
+    if (startBtn) startBtn.style.display = 'none';
+    showAnimation("READY");
+    setTimeout(() => {
+        startCountdown();
+    }, 1000);
+}
+
 /* RESET DU DUEL */
 function restartDuel() {
     duelFinished = false;
-    difficulty = null;
-
     document.getElementById("chrono").textContent = "00";
     document.getElementById("animation").style.opacity = 0;
     document.getElementById("restartBtn").style.display = "none";
-
+    // Réafficher le bouton Start
+    const startBtn = document.querySelector('.startBtn');
+    if (startBtn) startBtn.style.display = 'block';
     showAnimation("READY");
-}
-
-/* Choix difficulté */
-function setDifficulty(d) {
-    if (duelFinished) return;
-
-    difficulty = d;
-    duelFinished = false;
-
-    showAnimation("START!");
-    startCountdown();
 }
 
 /* Countdown vers GO */
@@ -82,3 +85,4 @@ function showAnimation(text) {
         anim.style.opacity = 0;
     }, 1400);
 }
+

@@ -7,14 +7,6 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <!-- Difficulty Buttons -->
-    <div id="difficulty">
-        <button class="easy" onclick="setDifficulty('easy')">Easy</button>
-        <button class="medium" onclick="setDifficulty('medium')">Medium</button>
-        <button class="hard" onclick="setDifficulty('hard')">Hard</button>
-    </div>
-
     <!-- Split Screen -->
     <div class="side left" onclick="buzz(1)">
         <h1>PLAYER 1</h1>
@@ -23,6 +15,9 @@
     <div class="side right" onclick="buzz(2)">
         <h1>PLAYER 2</h1>
     </div>
+
+    <!-- Start button -->
+    <div class="startBtn" onclick="startDuel()">START DUEL</div>
 
     <!-- Countdown -->
     <div id="chrono">00</div>
