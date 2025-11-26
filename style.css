@@ -1,0 +1,138 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0f0f17;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Split Screen */
+.side {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background 0.25s, transform 0.1s, filter 0.1s;
+    text-align: center;
+    padding: 16px;
+}
+
+.left {
+    background: #1a1f3c;
+}
+
+.right {
+    background: #3c1a2c;
+}
+
+.side:active {
+    transform: scale(1.03);
+    filter: brightness(1.2);
+}
+
+.side h1 {
+    font-size: 3vw;
+}
+
+/* Difficulty Buttons */
+#difficulty {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 10;
+}
+
+button {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.easy { background: #4cd964; }
+.medium { background: #ffd166; }
+.hard { background: #ff6b6b; }
+
+/* Countdown */
+#chrono {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 32px;
+    font-weight: bold;
+}
+
+/* Animation Text */
+#animation {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 42px;
+    opacity: 0;
+    transition: 0.3s;
+    text-align: center;
+    padding: 0 10px;
+}
+
+/* Restart Button */
+#restartBtn {
+    position: absolute;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 14px 22px;
+    border: none;
+    border-radius: 8px;
+    background: #ff4fa3;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    display: none;
+    z-index: 20;
+    box-shadow: 0 0 15px rgba(255, 79, 163, 0.4);
+    transition: transform 0.2s;
+}
+
+#restartBtn:active {
+    transform: translateX(-50%) scale(1.05);
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+    }
+
+    .side {
+        height: 50vh;
+    }
+
+    .side h1 {
+        font-size: 8vw;
+    }
+
+    #difficulty button {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+
+    #chrono {
+        font-size: 26px;
+    }
+
+    #animation {
+        font-size: 32px;
+    }
+}

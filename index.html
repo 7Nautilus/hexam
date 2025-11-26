@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Duel Prototype</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Difficulty Buttons -->
+    <div id="difficulty">
+        <button class="easy" onclick="setDifficulty('easy')">Easy</button>
+        <button class="medium" onclick="setDifficulty('medium')">Medium</button>
+        <button class="hard" onclick="setDifficulty('hard')">Hard</button>
+    </div>
+
+    <!-- Split Screen -->
+    <div class="side left" onclick="buzz(1)">
+        <h1>PLAYER 1</h1>
+    </div>
+
+    <div class="side right" onclick="buzz(2)">
+        <h1>PLAYER 2</h1>
+    </div>
+
+    <!-- Countdown -->
+    <div id="chrono">00</div>
+
+    <!-- Animation text -->
+    <div id="animation">DUEL!</div>
+
+    <!-- Restart Button -->
+    <button id="restartBtn" onclick="restartDuel()">RESTART</button>
+
+    <script src="game.js"></script>
+
+</body>
+</html>
