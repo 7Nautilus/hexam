@@ -1,6 +1,20 @@
+const startBtn = document.getElementById("startBtn");
+const chrono = document.getElementById("chrono");
+const animation = document.getElementById("animation");
+const victoryOverlay = document.getElementById("victoryOverlay");
+const victoryMessage = document.getElementById("victoryMessage");
+
+const START_LABEL = "START DUEL";
+const RESTART_LABEL = "RESTART DUEL";
+
 let timer = null;
+let startDelayTimeout = null;
+let animationTimeout = null;
 let timeLeft = 3;
+let duelActive = false;
 let duelFinished = false;
+
+showStartButton(START_LABEL);
 
 /* Sons spécifiques par joueur */
 const soundPlayer1 = "sfx/fahhh.wav";
@@ -14,44 +28,46 @@ function playSoundForPlayer(player) {
 
 // Lance le duel depuis le bouton Start
 function startDuel() {
+    if (duelActive) return;
+
+    duelActive = true;
     duelFinished = false;
-    document.getElementById("restartBtn").style.display = "none";
-    document.getElementById("animation").style.opacity = 0;
-    document.getElementById("chrono").textContent = "3";
-    // Masquer le bouton Start
-    const startBtn = document.querySelector('.startBtn');
-    if (startBtn) startBtn.style.display = 'none';
+
+    if (animation) animation.style.opacity = 0;
+    if (chrono) chrono.textContent = "3";
+    hideVictoryOverlay();
+    hideStartButton();
+
+    resetAnimationTimeout();
+    resetStartDelay();
+    clearCountdown();
+
     showAnimation("READY");
-    setTimeout(() => {
+
+    startDelayTimeout = setTimeout(() => {
         startCountdown();
     }, 1000);
 }
 
-/* RESET DU DUEL */
-function restartDuel() {
-    duelFinished = false;
-    document.getElementById("chrono").textContent = "00";
-    document.getElementById("animation").style.opacity = 0;
-    document.getElementById("restartBtn").style.display = "none";
-    // Réafficher le bouton Start
-    const startBtn = document.querySelector('.startBtn');
-    if (startBtn) startBtn.style.display = 'block';
-    showAnimation("READY");
-}
-
 /* Countdown vers GO */
 function startCountdown() {
-    const chrono = document.getElementById("chrono");
     timeLeft = 3;
 
-    clearInterval(timer);
+    clearCountdown();
+
     timer = setInterval(() => {
+        if (!chrono) {
+            clearCountdown();
+            return;
+        }
+
         chrono.textContent = timeLeft;
 
         if (timeLeft === 0) {
-            clearInterval(timer);
+            clearCountdown();
             chrono.textContent = "GO";
             showAnimation("GO!");
+            return;
         }
 
         timeLeft--;
@@ -60,29 +76,76 @@ function startCountdown() {
 
 /* Buzz */
 function buzz(player) {
-    const chrono = document.getElementById("chrono");
-
-    if (duelFinished) return;
-    if (chrono.textContent !== "GO") return;
+    if (duelFinished || !duelActive) return;
+    if (!chrono || chrono.textContent !== "GO") return;
 
     duelFinished = true;
+    duelActive = false;
 
     showAnimation(`PLAYER ${player} WINS`);
     playSoundForPlayer(player);
 
-    clearInterval(timer);
+    clearCountdown();
+    resetStartDelay();
 
-    document.getElementById("restartBtn").style.display = "block";
+    if (chrono) chrono.textContent = "00";
+
+    showVictoryOverlay(`PLAYER ${player} WINS`);
+    showStartButton(RESTART_LABEL);
 }
 
 /* Animation Texte */
 function showAnimation(text) {
-    const anim = document.getElementById("animation");
-    anim.textContent = text;
-    anim.style.opacity = 1;
+    if (!animation) return;
 
-    setTimeout(() => {
-        anim.style.opacity = 0;
+    animation.textContent = text;
+    animation.style.opacity = 1;
+
+    resetAnimationTimeout();
+    animationTimeout = setTimeout(() => {
+        animation.style.opacity = 0;
     }, 1400);
+}
+
+function clearCountdown() {
+    if (timer) {
+        clearInterval(timer);
+        timer = null;
+    }
+}
+
+function resetStartDelay() {
+    if (startDelayTimeout) {
+        clearTimeout(startDelayTimeout);
+        startDelayTimeout = null;
+    }
+}
+
+function resetAnimationTimeout() {
+    if (animationTimeout) {
+        clearTimeout(animationTimeout);
+        animationTimeout = null;
+    }
+}
+
+function showVictoryOverlay(text) {
+    if (!victoryOverlay || !victoryMessage) return;
+    victoryMessage.textContent = text;
+    victoryOverlay.classList.add("visible");
+}
+
+function hideVictoryOverlay() {
+    if (!victoryOverlay) return;
+    victoryOverlay.classList.remove("visible");
+}
+
+function showStartButton(label = START_LABEL) {
+    if (!startBtn) return;
+    if (label) startBtn.textContent = label;
+    startBtn.style.display = "block";
+}
+
+function hideStartButton() {
+    if (startBtn) startBtn.style.display = "none";
 }
 

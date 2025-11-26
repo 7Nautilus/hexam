@@ -17,7 +17,7 @@
     </div>
 
     <!-- Start button -->
-    <div class="startBtn" onclick="startDuel()">START DUEL</div>
+    <button id="startBtn" class="startBtn" type="button" onclick="startDuel()">START DUEL</button>
 
     <!-- Countdown -->
     <div id="chrono">00</div>
@@ -25,8 +25,10 @@
     <!-- Animation text -->
     <div id="animation">DUEL!</div>
 
-    <!-- Restart Button -->
-    <button id="restartBtn" onclick="restartDuel()">RESTART</button>
+    <!-- Victory overlay -->
+    <div id="victoryOverlay" aria-live="polite" aria-atomic="true">
+        <div id="victoryMessage">PLAYER 1 WINS</div>
+    </div>
 
     <script src="game.js"></script>
 
